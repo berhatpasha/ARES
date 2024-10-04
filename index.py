@@ -6,7 +6,6 @@ colorama.init(autoreset=True)
 
 os.system("cls")
 
-
 def one():
     pass
 
