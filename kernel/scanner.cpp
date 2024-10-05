@@ -7,7 +7,7 @@ bool virusTotal = false;
 using namespace std;
 
 void databaseScanner() {
-    // Veri Tabanındaki tehditlerle uyumu kontrol edecektir
+    // Veri TabanÄ±ndaki tehditlerle uyumu kontrol edecektir
 }
 
 
