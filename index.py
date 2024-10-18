@@ -7,13 +7,13 @@ colorama.init(autoreset=True)
 os.system("cls")
 
 def one():
-    pass
+    os.system('D:\kernel\restore.exe')
 
 def two():
-    pass
+    os.system('D:\kernel\scanner.exe')
 
 def three():
-    pass
+    os.system('D:\kernel\scanner++.exe')
 
 print("\n")
 print(f"{Fore.CYAN} Service launched ! ")

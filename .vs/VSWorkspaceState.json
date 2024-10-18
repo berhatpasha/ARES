@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\debug",
+    "\\kernel"
   ],
-  "SelectedNode": "\\backup.cpp",
+  "SelectedNode": "\\debug\\example.txt",
   "PreviewInSolutionExplorer": false
 }
