@@ -1,9 +1,13 @@
+
 import threading
 import os 
 import time
 import colorama
+import shutil
 from colorama import Fore
 colorama.init(autoreset=True)
+
+backup_path = os.path.join(os.getcwd(), 'backup')
 
 
 with open('kernel/os','r') as file:
@@ -37,14 +41,24 @@ def main():
 
     tnmd = 0
     i = 0
+    
     while len(database.split()) > i:
         if os.path.exists(database.split()[i]):
             tnmd = tnmd + 1
-            # burada dosyaları kopyala
+            try:
+                try: 
+                    shutil.copy(database.split()[i], backup_path)
+                except Exception as e:
+                    print(e)
+                    time.sleep(5)
+                    shutil.copytree(database.split()[i], backup_path)
+            except Exception as e:
+                print(e)
+            print(database.split()[i])
         i = i + 1
     print(f"{Fore.GREEN}{tnmd} {Fore.LIGHTBLUE_EX}identified files/folders were detected and backed up")
-    
-    time.sleep(3)
+    time.sleep(4)
+
     
 mainProcess = threading.Thread(target=main)
 mainProcess.start()
