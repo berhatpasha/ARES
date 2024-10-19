@@ -1,4 +1,4 @@
-
+import subprocess
 import threading
 import os 
 import time
@@ -9,6 +9,12 @@ colorama.init(autoreset=True)
 
 backup_path = os.path.join(os.getcwd(), 'backup')
 
+disk = os.getcwd()[0]
+
+if disk == "/" or disk == "C:":
+    print(f"{Fore.RED} incorrect installation or false start err : 001")
+    time.sleep(3)
+    exit()
 
 with open('kernel/os','r') as file:
     Os = file.read()
@@ -21,6 +27,9 @@ with open('kernel/loader','r') as file:
 
 with open('kernel/database','r') as file:
     database = file.read()
+    
+with open('kernel/user','r') as file:
+    username = file.read()
 
 if Os == "windows":
     cleaner = "cls"
@@ -32,6 +41,17 @@ else:
     os.system(cleaner)
     print(" "*10)
     print(f"{Fore.CYAN}configured according to {Fore.GREEN}linux")
+    
+
+def ejectDisk_Windows(disk_letter):
+    command = f"powershell -Command \"(New-Object -COMObject Shell.Application).Namespace('{disk_letter}').Self.InvokeVerb('Eject')\""
+    
+    try:
+        subprocess.run(command, shell=True, check=True)
+        print(f"{disk_letter} diski çıkartıldı.")
+    except subprocess.CalledProcessError as e:
+        print(f"err: {e}")
+
     
     
 def main():
@@ -114,4 +134,9 @@ ARES     ARES
 ARES      ARES    
 ''')
     time.sleep(2)
+    if os=="windows":
+        ejectDisk_Windows(f"{os.getcwd()[0]}")
+    else:
+        subprocess.run('umount', f"/media/{username}/E", check=True)
     exit()
+    
