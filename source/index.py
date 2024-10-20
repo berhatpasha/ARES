@@ -7,8 +7,6 @@ import shutil
 from colorama import Fore
 colorama.init(autoreset=True)
 
-backup_path = os.path.join(os.getcwd(), 'backup')
-
 disk = os.getcwd()[0]
 
 if disk == "/" or disk == "C:":
@@ -53,29 +51,38 @@ def ejectDisk_Windows(disk_letter):
         print(f"err: {e}")
 
     
-    
+backup_path = os.path.join(os.getcwd(), 'backup')
 def main():
     time.sleep(2.5)
     print(f"{Fore.CYAN}recovery in progress: ")
     print(f"{Fore.GREEN}{len(database.split())} {Fore.LIGHTBLUE_EX}files defined in the system ")
 
+
     tnmd = 0
-    i = 0
+    for path in database.split():
+        if not os.path.exists(path):
+            print(f"{path} NOT FOUND (passed)")
+            continue 
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                srcFile = os.path.join(root,file)
+                destFile = os.path.join(backup_path, os.path.relpath(srcFile, path))
+                
+                try:
+                    os.makedirs(os.path.dirname(destFile), exist_ok=True)
+                    shutil.copy2(srcFile, destFile)
+                    tnmd += 1
+                except:
+                    print(f"err passed")
+                    time.sleep(3)    
+            for dir in dirs:
+                src_dir = os.path.join(root,dir)
+                dest_dir = os.path.join(backup_path, os.path.relpath(src_dir,path))
+                try:
+                    os.makedirs(dest_dir, exist_ok=True)
+                except:
+                    print(f"err passed")
     
-    while len(database.split()) > i:
-        if os.path.exists(database.split()[i]):
-            tnmd = tnmd + 1
-            try:
-                try: 
-                    shutil.copy(database.split()[i], backup_path)
-                except Exception as e:
-                    print(e)
-                    time.sleep(5)
-                    shutil.copytree(database.split()[i], backup_path)
-            except Exception as e:
-                print(e)
-            print(database.split()[i])
-        i = i + 1
     print(f"{Fore.GREEN}{tnmd} {Fore.LIGHTBLUE_EX}identified files/folders were detected and backed up")
     time.sleep(4)
 
@@ -135,8 +142,10 @@ ARES      ARES
 ''')
     time.sleep(2)
     if os=="windows":
+        pass
         ejectDisk_Windows(f"{os.getcwd()[0]}")
     else:
+        pass
         subprocess.run('umount', f"/media/{username}/E", check=True)
     exit()
     
