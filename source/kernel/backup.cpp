@@ -25,14 +25,14 @@ int main() {
     string filename = "database";
 
     if (!fileExists(filename)) {
-        cerr << "err" << endl;
+        cerr << "err 002" << endl;
         return 1;
     }
 
     ifstream inputFile(filename);
 
     if (!inputFile.is_open()) {
-        cerr << "err" << endl;
+        cerr << "err 003" << endl;
         return 1;
     }
 
@@ -53,7 +53,7 @@ int main() {
             std::cerr << "ERR" << std::endl;
             return 1;
         } catch (const std::exception& e) {
-            std::cerr << "ERR" << std::endl;
+            std::cerr << "err 004" << std::endl;
             return 1;
         }
     }
@@ -61,3 +61,4 @@ int main() {
     inputFile.close();
     return 0;
 }
+
