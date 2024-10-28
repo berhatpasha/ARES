@@ -22,7 +22,15 @@ void copyDirectory(const filesystem::path& source, const filesystem::path& targe
 }
 
 int main() {
-    string filename = "database";
+    auto start = std::chrono::high_resolution_clock::now();
+
+    ofstream file("kernel/time");
+    if (!file) {
+        std::cerr << "err 007" << std::endl;
+        return 1;
+    }
+
+    string filename = "kernel/database";
 
     if (!fileExists(filename)) {
         cerr << "err 002" << endl;
@@ -41,16 +49,16 @@ int main() {
     string line;
     while (getline(inputFile, line)) {
         n ++;
-        cout << "satır" << n << " " << line << endl;
+        cout << "line" << n << " " << line << endl;
         string sourceDir = line;
-        string targetDir = "../backup/";
+        string targetDir = "backup/";
 
 
         try {
             copyDirectory(sourceDir, targetDir);
             std::cout << "DONE!" << std::endl;
         } catch (const filesystem::filesystem_error& e) {
-            std::cerr << "ERR" << std::endl;
+            std::cerr << "err 005" << std::endl;
             return 1;
         } catch (const std::exception& e) {
             std::cerr << "err 004" << std::endl;
@@ -59,6 +67,12 @@ int main() {
     }
 
     inputFile.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    file << duration.count() << std::endl;
+    file.close();
+
     return 0;
 }
 

@@ -3,27 +3,29 @@ import threading
 import os 
 import time
 import colorama
-import shutil
+#import shutil
 from colorama import Fore
 import keyboard
 colorama.init(autoreset=True)
+#from tqdm import tqdm
+
 
 
 def backup():
     os.system('./kernel/backup')
-    print(f"{Fore.CYAN} TRANSACTION COMPLETED ! YOU CAN REMOVE THE DISK")
+    #os.system('clear')
+    print(f"{Fore.CYAN}TRANSACTION COMPLETED ! YOU CAN REMOVE THE DISK")
 
 
 main = threading.Thread(target=backup)
-main.start()
 
 
 disk = os.getcwd()[0]
 
 if disk == "/" or disk == "C:":
-    print(f"{Fore.RED} incorrect installation or false start err : 001")
+    print(f"{Fore.RED}incorrect installation or false start err : 001")
     time.sleep(3)
-    exit()
+    #exit()
 
 with open('kernel/os','r') as file:
     Os = file.read()
@@ -57,9 +59,13 @@ else:
     print(" "*10)
     print(f"{Fore.CYAN}configured according to {Fore.GREEN}linux")
 
+main.start()
+main.join()
 time.sleep(2)   
 os.system(cleaner)
 #   Banner
+with open('kernel/time','r') as file:
+    timeR = file.read()
 print(f'''{Fore.LIGHTYELLOW_EX}           
           ██████████       
           ██▒▒▒▒▒▒██          
@@ -70,7 +76,7 @@ print(f'''{Fore.LIGHTYELLOW_EX}
   ██▓▓▓▓░░░░▓▓▓▓▓▓░░  ░░░░██    {Fore.CYAN}ARES RELEASE{Fore.LIGHTYELLOW_EX}
   ██▓▓░░░░░░░░░░░░░░░░  ░░██    {Fore.CYAN}C++ & Python based version{Fore.LIGHTYELLOW_EX}
 ██▓▓░░░░░░░░░░░░░░░░░░░░░░░░██  {Fore.CYAN}You can access the license on Github{Fore.LIGHTYELLOW_EX}
-██▓▓░░░░░░░░░░░░░░░░░░░░░░░░██  {Fore.CYAN}The disk will be deactivated when the process is finished{Fore.LIGHTYELLOW_EX}
+██▓▓░░░░░░░░░░░░░░░░░░░░░░░░██  {Fore.GREEN}COMPLATED İN {timeR.split()[0]} MS{Fore.LIGHTYELLOW_EX}
 ██▓▓░░██████░░░░░░██████░░░░██    
 ██▓▓██{Fore.LIGHTRED_EX}▓▓▓▓▓▓{Fore.LIGHTYELLOW_EX}██░░██{Fore.LIGHTRED_EX}▓▓▓▓▓▓{Fore.LIGHTYELLOW_EX}██░░██
 ██▓▓██{Fore.LIGHTRED_EX}▓▓▓▓▓▓{Fore.LIGHTYELLOW_EX}██░░██{Fore.LIGHTRED_EX}▓▓▓▓▓▓{Fore.LIGHTYELLOW_EX}██░░██
@@ -83,10 +89,9 @@ print(f'''{Fore.LIGHTYELLOW_EX}
         ████      ████
 ''')
 
-time.sleep(3)
+time.sleep(5)
 os.system(cleaner)
 
-main.join()
 print(f'''{Fore.LIGHTGREEN_EX}
 [1] Format  [2] Back to restore point [3] Exit
 ''')
@@ -97,18 +102,9 @@ def one():
 def two():
     os.system('python3 kernel/two.py')
 
-keyboard.on_press_key("1", lambda _: one())
-keyboard.on_press_key("1", lambda _: two())
-keyboard.wait()
-
-Input = input(f"{Fore.LIGHTBLUE_EX}Select one of them: {Fore.WHITE}")
-if Input.split()[0].lower() == "1" and Input.split()[0].lower() == "one":
-    pass
-elif Input.split()[0].lower() == "1" and Input.split()[0].lower() == "two":
-    pass
-else:
+def exitR():
     os.system(cleaner)
-    print(f"{Fore.GREEN} transaction terminated")
+    print(f"{Fore.GREEN}transaction terminated")
     time.sleep(1)
     os.system(cleaner)
     print(f'''{Fore.LIGHTGREEN_EX}
@@ -121,11 +117,18 @@ ARES      ARES  ARES    ARES  ARES ARES  ARES ARES
 ''')
     time.sleep(2)
     if os=="windows":
-        pass
+        if rcMODE == True:
+            #os.system('bcdedit /set {default} safeboot minimal')
+            #os.system('shutdown /r /t 0')
+            pass
     else:
         pass
-        subprocess.run('umount', f"/media/{username}/E", check=True)
-    if rcMODE == True:
-        os.system('bcdedit /set {default} safeboot minimal')
-        os.system('shutdown /r /t 0')
+    
+        #subprocess.run('umount', f"/media/{username}/E", check=True)
+        # Bu kısımlar üzerine çalış
     exit()
+
+keyboard.on_press_key("1", lambda _: one())
+keyboard.on_press_key("2", lambda _: two())
+keyboard.on_press_key("3", lambda _: exitR())
+keyboard.wait()
