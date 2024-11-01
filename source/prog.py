@@ -3,11 +3,12 @@ import threading
 import os 
 import time
 import colorama
-#import shutil
 from colorama import Fore
 import keyboard
 colorama.init(autoreset=True)
-#from tqdm import tqdm
+
+def secureMode():
+    pass
 
 
 
@@ -15,6 +16,18 @@ def backup():
     os.system('./kernel/backup')
     #os.system('clear')
     print(f"{Fore.CYAN}TRANSACTION COMPLETED ! YOU CAN REMOVE THE DISK")
+    if os=="windows":
+        if rcMODE == True:
+            os.system('bcdedit /set {default} safeboot minimal')
+            os.system('shutdown /r /t 0')
+            os.system(f'wmic logicaldisk where deviceid="{disk}" call dismount')
+            
+    else:
+        pass
+        subprocess.run('umount', f"/media/{username}/E", check=True)
+        # Bu kısımlar üzerine çalış
+    exit()
+    
 
 
 main = threading.Thread(target=backup)
@@ -116,17 +129,6 @@ ARES     ARES   ARES   ARES   ARES             ARES
 ARES      ARES  ARES    ARES  ARES ARES  ARES ARES
 ''')
     time.sleep(2)
-    if os=="windows":
-        if rcMODE == True:
-            #os.system('bcdedit /set {default} safeboot minimal')
-            #os.system('shutdown /r /t 0')
-            pass
-    else:
-        pass
-    
-        #subprocess.run('umount', f"/media/{username}/E", check=True)
-        # Bu kısımlar üzerine çalış
-    exit()
 
 keyboard.on_press_key("1", lambda _: one())
 keyboard.on_press_key("2", lambda _: two())
