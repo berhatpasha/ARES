@@ -1,13 +1,13 @@
 @echo off
 :a
-::-------V----Change this to your drive Letter
+:: Change this to your drive Letter
 if exist D:\ (goto Yes) else (goto a)
 
 :Yes
-::V----Change this to your drive Letter
+:: Change this to your drive Letter
 G:
-::----V----You can put any Program you want here
-start File.bat
+:: You can put any Program you want here
+start index.exe
 goto end
 
 :end
