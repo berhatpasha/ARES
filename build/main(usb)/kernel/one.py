@@ -1,2 +1,0 @@
-while True:
-    print("PROCESSİNG")
