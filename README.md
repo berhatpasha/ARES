@@ -19,3 +19,4 @@
 > - **err 004:** exceptional mistakes. I don't know why I'm getting this error ¯\\__(•‿•)_/¯
 > - **err 005:** This error is usually caused by compilation. Please follow the recommended compilation procedures if you compiled it yourself
 > - **err 007:** again (File could not be opened kernel/time)
+> ![im](media/H/3.png)
