@@ -11,7 +11,7 @@ def secureMode():
     pass
 
 
-
+#! critical
 def backup():
     os.system('start kernel/backup.exe')
     #os.system('clear')
