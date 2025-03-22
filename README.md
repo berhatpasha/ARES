@@ -1,3 +1,8 @@
+## ATTENTION: The development of the project has been terminated.
+
+
+
+
 ## ADVANCED RECOVERY AND EMERGENCY SYSTEM 
 ><div style="display: flex; align-items: center;">
 >  <img src="media/icon/webAndPng/icons8-greek-helmet-96.png" alt="Alternatif Metin" style="margin-right: 10px;">
